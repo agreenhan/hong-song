@@ -33,7 +33,7 @@ public class LogAspect {
     }
 
     /**
-     * @Description: 将日志信息生产给消息队列
+     * @Description: 将日志信息存入数据库
      * @param joinPoint 连接点
      * @Author: agreenHan
      * @Date: 2023/2/26 18:34

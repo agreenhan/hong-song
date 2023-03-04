@@ -1,12 +1,13 @@
 package com.hongsong.constant.log;
 
-import com.hongsong.constant.Module;
+import lombok.Getter;
 
 /**
- * @Description: 日志枚举
+ * @Description: 员工账号日志枚举
  * @Author: agreenHan
  * @Date: 2023/2/28 22:05
  */
+@Getter
 public enum EmployeeLogEnum {
     Employee_LOGIN(Module.EMPLOYEE, "登陆账号"),
     Employee_EXIT(Module.EMPLOYEE, "退出账号"),

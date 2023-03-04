@@ -16,5 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface EmployeeService extends IService<Employee> {
 
 
-    ResponseResult<?> login(EmployeeDTO employeeDTO);
+    ResponseResult<?> login(Employee employee);
+
+    ResponseResult<?> logout();
 }

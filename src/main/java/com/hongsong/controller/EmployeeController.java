@@ -3,6 +3,7 @@ package com.hongsong.controller;
 
 import com.hongsong.common.ResponseResult;
 import com.hongsong.pojo.dto.EmployeeDTO;
+import com.hongsong.pojo.po.Employee;
 import com.hongsong.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +27,13 @@ public class EmployeeController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "登录")
-    public ResponseResult<?> login(@RequestBody EmployeeDTO employeeDTO) {
-        return employeeService.login(employeeDTO);
+    public ResponseResult<?> login(Employee employee) {
+        return employeeService.login(employee);
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ApiOperation(value = "退出")
+    public ResponseResult<?> logout() {
+        return employeeService.logout();
     }
 }

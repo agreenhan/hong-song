@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author author
- * @since 2023-03-03 03:57:04
+ * @since 2023-03-04 04:00:15
  */
 @Getter
 @Setter
@@ -36,13 +36,13 @@ public class Module implements Serializable {
     @TableField("module_name")
     private String moduleName;
 
-    @ApiModelProperty("地址")
-    @TableField("href")
-    private String href;
+    @ApiModelProperty("路由地址")
+    @TableField("path")
+    private String path;
 
-    @ApiModelProperty("前端地址")
-    @TableField("url")
-    private String url;
+    @ApiModelProperty("组件路径")
+    @TableField("component")
+    private String component;
 
     @ApiModelProperty("父模块id")
     @TableField("parent_id")
@@ -52,7 +52,7 @@ public class Module implements Serializable {
     @TableField("is_valid")
     private Boolean isValid;
 
-    @ApiModelProperty("模块图表")
+    @ApiModelProperty("菜单图表")
     @TableField("icon")
     private String icon;
 
@@ -68,6 +68,14 @@ public class Module implements Serializable {
     @TableField("is_deleted")
     @TableLogic
     private Boolean isDeleted;
+
+    @ApiModelProperty("备注")
+    @TableField("remark")
+    private String remark;
+
+    @ApiModelProperty("菜单状态（0显示 1隐藏）")
+    @TableField("visible")
+    private String visible;
 
 
 }

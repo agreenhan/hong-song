@@ -9,7 +9,9 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
@@ -17,27 +19,39 @@ import javax.annotation.Resource;
 /**
  * SpringSecurity相关配置
  *
- * @Author: jht
+ * @Author: author
  * @Date: 2023/03/03 16:01
  */
 @Configuration
 public class SecurityConfig {
-    @Autowired
-    private AuthenticationConfiguration authenticationConfiguration;
 
     @Resource
     JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-    @Bean
-    public AuthenticationManager authenticationManager() throws Exception{
-        AuthenticationManager authenticationManager = authenticationConfiguration.getAuthenticationManager();
-        return authenticationManager;
-    }
+
+    @Autowired
+    private AuthenticationConfiguration authenticationConfiguration;
+
+    @Autowired
+    private AuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public AuthenticationManager authenticationManager() throws Exception{
+        return authenticationConfiguration.getAuthenticationManager();
     }
+
+//    /**
+//     * @Describe: 更改密码校验类[默认为PasswordEncoder]
+//     * @Author: author
+//     * @Date: 2023/3/4 13:42
+//     */
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -49,11 +63,23 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 // 对于登录接口和swagger 允许匿名访问
-                .antMatchers("/employee/login", "/doc.html").anonymous()
+                .antMatchers("/employee/login").anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
                 .and()
+                // 添加过滤器
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                // 配置异常处理器
+                .exceptionHandling()
+                // 认证异常
+                .authenticationEntryPoint(authenticationEntryPoint)
+                // 授权异常
+                .accessDeniedHandler(accessDeniedHandler)
+                .and()
+                // 允许跨域
+                .cors()
+                .and()
+                // 构建对象
                 .build();
     }
 }

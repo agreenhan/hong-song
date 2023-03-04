@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -36,19 +37,28 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
 
     @Override
-    public ResponseResult<?> login(EmployeeDTO employeeDTO) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(employeeDTO.getPhoneNumber(), employeeDTO.getPassword());
+    public ResponseResult<?> login(Employee employee) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(employee.getPhoneNumber(), employee.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         if (Objects.isNull(authenticate)) {
             throw new ValidException(ErrorCode.LOGIN_FAILED, null);
         }
         // 使用手机号生成token
         LoginEmployee loginEmployee = (LoginEmployee) authenticate.getPrincipal();
-        String phoneNumber = loginEmployee.getEmployee().getPhoneNumber();
-        String jwt = JwtUtil.createJWT(phoneNumber);
+        String empId = loginEmployee.getEmployee().getId().toString();
+        String jwt = JwtUtil.createJWT(empId);
         // 存入redis
-        redisUtil.setCacheObject("login:" + phoneNumber, loginEmployee);
+        redisUtil.setCacheObject("login:" + empId, loginEmployee);
         // token响应给前端
-        return ResponseResult.success().data(jwt).message("登陆成功");
+        return ResponseResult.success().data(jwt).message("登陆成功").code(200);
+    }
+
+    @Override
+    public ResponseResult<?> logout() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginEmployee loginEmployee = (LoginEmployee) authentication.getPrincipal();
+        Integer empId = loginEmployee.getEmployee().getId();
+        redisUtil.deleteObject("login:" + empId);
+        return ResponseResult.success().message("退出成功").code(200);
     }
 }

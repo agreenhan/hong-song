@@ -1,15 +1,20 @@
 package com.hongsong.constant;
 
+import lombok.Getter;
+
 /**
  * @Description: Http状态码及信息
  * @Author: agreenHan
  * @Date: 2023/2/28 10:50
  */
+@Getter
 public enum HttpStatus {
     SUCCESS(20000, "请求成功"),
     FAILURE(4000, "请求失败"),
     NOT_FOUND(404, "未找到该资源"),
-    BAD_REQUEST(400, "错误请求");
+    BAD_REQUEST(400, "错误请求"),
+    FORBIDDEN(403, "无权限访问"),
+    UNAUTHORIZED(401, "认证失败");
 
     private Integer code;
     private String message;

@@ -42,7 +42,8 @@ public class MybatisGenerator {
                 })
                 // 策略配置
                 .strategyConfig(builder -> {
-                    builder.addTablePrefix("t_") // 设置过滤表前缀
+                    builder.addInclude("t_module")
+                            .addTablePrefix("t_") // 设置过滤表前缀
                             .enableSkipView() // 开启跳过视图
                             // 实体类策略配置
                             .entityBuilder()

@@ -94,7 +94,7 @@ public class JwtUtil {
     }
 
     public static void main(String[] args) {
-        String jwt = createJWT("17634409136");
+        String jwt = createJWT("17634409136", 60 * 60 * 1000 * 24L);
         System.out.println(jwt);
     }
 

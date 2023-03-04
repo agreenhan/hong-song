@@ -1,4 +1,4 @@
-package com.hongsong.constant;
+package com.hongsong.constant.log;
 
 /**
  * @Description: 模块常量类
