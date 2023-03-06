@@ -1,7 +1,8 @@
-package com.hongsong.filter;
+package com.hongsong.security;
 
 
 import com.hongsong.constant.ErrorCode;
+import com.hongsong.constant.RedisKey;
 import com.hongsong.exception.ValidException;
 import com.hongsong.pojo.po.LoginEmployee;
 import com.hongsong.util.JwtUtil;
@@ -22,7 +23,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * 拦截器，主要作用是判断请求头中是否有token
+ * 过滤器，主要作用是判断请求头中是否有token
  *
  * @Author: author
  * @Date: 2023/03/03 16:52
@@ -42,21 +43,22 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             return;
         }
         // 解析token
-        String phoneNumber;
+        String empId;
         try {
             Claims claims = JwtUtil.parseJWT(token);
-            phoneNumber = claims.getSubject();
+            empId = claims.getSubject();
         } catch (Exception e) {
             e.printStackTrace();
             throw new ValidException(ErrorCode.LOGIN_FAILED, null);
         }
         // 从redis中获取信息
-        LoginEmployee loginEmployee = redisUtil.getCacheObject("login:" + phoneNumber);
+        LoginEmployee loginEmployee = redisUtil.getCacheObject(RedisKey.IDENTITY + RedisKey.LOGIN + empId);
         if (Objects.isNull(loginEmployee)) {
             throw new ValidException(ErrorCode.LOGIN_FAILED, null);
         }
         // 存入SecurityContextHolder中
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginEmployee, null, null);
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginEmployee, null, loginEmployee.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         // 放行
         filterChain.doFilter(request, response);

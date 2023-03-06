@@ -8,7 +8,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 @SpringBootApplication
 @EnableSwagger2WebMvc
-@MapperScan(basePackages = {"com.hongsong.dao"})
+@MapperScan("com.hongsong.dao")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class HongSongApplication {
 
@@ -17,3 +17,4 @@ public class HongSongApplication {
 	}
 
 }
+

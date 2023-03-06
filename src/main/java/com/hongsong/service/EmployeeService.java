@@ -19,4 +19,6 @@ public interface EmployeeService extends IService<Employee> {
     ResponseResult<?> login(Employee employee);
 
     ResponseResult<?> logout();
+
+    ResponseResult<?> info();
 }

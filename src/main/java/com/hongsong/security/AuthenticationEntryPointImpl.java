@@ -1,4 +1,4 @@
-package com.hongsong.service.impl;
+package com.hongsong.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hongsong.common.ResponseResult;
@@ -25,6 +25,14 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * @Description: 返回认证失败结果
+     * @param request 请求
+     * @param response 响应
+     * @param authException authException
+     * @Author: agreenHan
+     * @Date: 2023/3/4 22:46
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         ResponseResult<Object> result = ResponseResult.success().code(HttpStatus.UNAUTHORIZED);

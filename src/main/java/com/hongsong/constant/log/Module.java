@@ -7,7 +7,6 @@ package com.hongsong.constant.log;
  */
 public class Module {
     public static final String EMPLOYEE = "员工模块";
-
     private Module() {
     }
 }

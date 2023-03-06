@@ -1,4 +1,4 @@
-package com.hongsong.service.impl;
+package com.hongsong.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hongsong.dao.EmployeeMapper;
@@ -27,22 +27,22 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private EmployeeMapper employeeMapper;
 
     /**
-     * @Describe:
+     * @Describe: 查询是否有该员工
      * @Author: jht
-     * @param username 用户名
+     * @param username 用户名（对应手机号）
      * @Date: 2023/3/4 14:03
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // 根据手机号查询用户信息
+        // 根据手机号查询员工信息
         LambdaQueryWrapper<Employee> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Employee::getPhoneNumber, username);
         Employee employee = employeeMapper.selectOne(wrapper);
         // 查询不到数据抛出异常
         if (Objects.isNull(employee)) {
-            throw new UsernameNotFoundException("用户不存在");
+            throw new UsernameNotFoundException("员工不存在");
         }
-        // TODO 根据用户查询权限信息 添加到LoginEmployee中
+        // TODO 根据员工查询权限信息 添加到LoginEmployee中
         List<String> list = new ArrayList<>(Arrays.asList("test"));
         return new LoginEmployee(employee, list);
     }

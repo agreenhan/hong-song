@@ -8,6 +8,7 @@ import com.hongsong.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -35,5 +36,12 @@ public class EmployeeController {
     @ApiOperation(value = "退出")
     public ResponseResult<?> logout() {
         return employeeService.logout();
+    }
+
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('test')")
+    @ApiOperation(value = "获取用户当前信息")
+    public ResponseResult<?> info() {
+        return employeeService.info();
     }
 }

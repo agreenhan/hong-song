@@ -9,12 +9,14 @@ import lombok.Getter;
  */
 @Getter
 public enum HttpStatus {
-    SUCCESS(20000, "请求成功"),
+    SUCCESS(200, "请求成功"),
     FAILURE(4000, "请求失败"),
     NOT_FOUND(404, "未找到该资源"),
     BAD_REQUEST(400, "错误请求"),
     FORBIDDEN(403, "无权限访问"),
-    UNAUTHORIZED(401, "认证失败");
+    UNAUTHORIZED(401, "认证失败"),
+    ILLEGAL_TOKEN(50008, "非法令牌"),
+    TOKEN_EXPIRATION(50014, "令牌过期");
 
     private Integer code;
     private String message;

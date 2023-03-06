@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -42,7 +43,7 @@ public class MybatisGenerator {
                 })
                 // 策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("t_module")
+                    builder.addInclude("t_role_permission", "t_button", "t_button_permission", "t_emp_role", "t_employee_training")
                             .addTablePrefix("t_") // 设置过滤表前缀
                             .enableSkipView() // 开启跳过视图
                             // 实体类策略配置
@@ -54,8 +55,8 @@ public class MybatisGenerator {
                             .naming(NamingStrategy.underline_to_camel) //数据库表映射到实体的命名策略：默认是下划线转驼峰命。这里可以不设置
                             .columnNaming(NamingStrategy.underline_to_camel) //数据库表字段映射到实体的命名策略：下划线转驼峰命。(默认是和naming一致，所以也可以不设置)
                             .addTableFills(
-                                    new Column("", FieldFill.INSERT),
-                                    new Column("", FieldFill.INSERT_UPDATE)
+                                    new Column("created_time", FieldFill.INSERT),
+                                    new Column("modified_time", FieldFill.INSERT_UPDATE)
                             ) // 添加表字段填充，"create_time"字段自动填充为插入时间，"modify_time"字段自动填充为插入修改时间
                             .idType(IdType.AUTO) // 开启主键自增
                             // Controller策略配置

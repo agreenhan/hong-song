@@ -1,10 +1,7 @@
 package com.hongsong.pojo.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
@@ -62,11 +59,11 @@ public class Training implements Serializable {
     private Boolean isDeleted;
 
     @ApiModelProperty("创建时间")
-    @TableField("created_time")
+    @TableField(value = "created_time", fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty("修改时间")
-    @TableField("modified_time")
+    @TableField(value = "modified_time", fill = FieldFill.INSERT_UPDATE)
     private Date modifiedTime;
 
 

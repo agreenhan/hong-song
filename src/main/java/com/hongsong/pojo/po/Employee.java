@@ -1,16 +1,15 @@
 package com.hongsong.pojo.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * <p>
@@ -20,8 +19,7 @@ import lombok.Setter;
  * @author author
  * @since 2023-03-03 03:57:04
  */
-@Getter
-@Setter
+@Data
 @TableName("t_employee")
 @ApiModel(value = "Employee对象", description = "")
 public class Employee implements Serializable {
@@ -61,11 +59,11 @@ public class Employee implements Serializable {
     private String salt;
 
     @ApiModelProperty("入职日期")
-    @TableField("created_time")
+    @TableField(value = "created_time", fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty("修改日期")
-    @TableField("modified_time")
+    @TableField(value = "modified_time", fill = FieldFill.INSERT_UPDATE)
     private Date modifiedTime;
 
     @ApiModelProperty("逻辑删除：0-没删 1-删了")

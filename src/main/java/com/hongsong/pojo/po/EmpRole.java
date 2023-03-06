@@ -1,7 +1,10 @@
 package com.hongsong.pojo.po;
 
-import com.baomidou.mybatisplus.annotation.*;
-
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
@@ -11,21 +14,21 @@ import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 员工职位关联表
  * </p>
  *
  * @author author
- * @since 2023-03-03 03:57:03
+ * @since 2023-03-06 08:39:38
  */
 @Getter
 @Setter
-@TableName("t_attendance")
-@ApiModel(value = "Attendance对象", description = "")
-public class Attendance implements Serializable {
+@TableName("t_emp_role")
+@ApiModel(value = "EmpRole对象", description = "员工职位关联表")
+public class EmpRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("考勤编号")
+    @ApiModelProperty("主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -33,22 +36,9 @@ public class Attendance implements Serializable {
     @TableField("emp_id")
     private Integer empId;
 
-    @ApiModelProperty("考勤日期")
-    @TableField("word_date")
-    private Date wordDate;
-
-    @ApiModelProperty("上班时间")
-    @TableField("in_time")
-    private Date inTime;
-
-    @ApiModelProperty("下班时间")
-    @TableField("out_time")
-    private Date outTime;
-
-    @ApiModelProperty("逻辑删除：0-没删 1-删了")
-    @TableField("is_deleted")
-    @TableLogic
-    private Boolean isDeleted;
+    @ApiModelProperty("职位编号")
+    @TableField("role_id")
+    private Integer roleId;
 
     @ApiModelProperty("创建时间")
     @TableField(value = "created_time", fill = FieldFill.INSERT)

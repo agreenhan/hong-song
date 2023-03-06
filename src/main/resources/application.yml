@@ -88,5 +88,3 @@ mybatis-plus:
   configuration:
     # mybatis-plus配置控制台打印完整带参数SQL语句
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  # 指定扫描mapper的路径
-  mapper-locations: classpath*:/mapper/*.xml

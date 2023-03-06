@@ -5,7 +5,7 @@ import com.hongsong.constant.ErrorCode;
 import java.util.Map;
 
 /**
- * TODO
+ * 鉴权异常
  *
  * @Author: jht
  * @Date: 2023/03/03 16:38

@@ -1,6 +1,6 @@
 package com.hongsong.config;
 
-import com.hongsong.filter.JwtAuthenticationTokenFilter;
+import com.hongsong.security.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -53,6 +52,13 @@ public class SecurityConfig {
 //        return new BCryptPasswordEncoder();
 //    }
 
+    /**
+     * @Description: 过滤器链配置
+     * @param http httpSecurity
+     * @return SecurityFilterChain
+     * @Author: agreenHan
+     * @Date: 2023/3/4 22:06
+     */
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -62,7 +68,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                // 对于登录接口和swagger 允许匿名访问
+                // 对于登录接口允许匿名访问
                 .antMatchers("/employee/login").anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated()
@@ -71,9 +77,9 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 配置异常处理器
                 .exceptionHandling()
-                // 认证异常
+                // 认证异常处理
                 .authenticationEntryPoint(authenticationEntryPoint)
-                // 授权异常
+                // 授权异常处理
                 .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 // 允许跨域

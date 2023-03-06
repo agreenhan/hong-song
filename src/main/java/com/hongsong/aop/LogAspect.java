@@ -1,15 +1,22 @@
 package com.hongsong.aop;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hongsong.annotation.LogAnnotation;
+import com.hongsong.pojo.po.Employee;
+import com.hongsong.pojo.po.Log;
+import com.hongsong.service.LogService;
+import com.hongsong.util.EmployeeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Objects;
 
 /**
@@ -21,6 +28,10 @@ import java.util.Objects;
 @Aspect
 @Slf4j
 public class LogAspect {
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private LogService logService;
 
 
     /**
@@ -39,13 +50,23 @@ public class LogAspect {
      * @Date: 2023/2/26 18:34
      */
     @Around("logAnnotationCut()")
-    public void logAspect(ProceedingJoinPoint joinPoint) {
+    public void logAspect(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         LogAnnotation annotation = method.getAnnotation(LogAnnotation.class);
-        if (Objects.isNull(annotation)) {
-            // 将操作日志存入数据库 TODO
-
+        if (Objects.nonNull(annotation)) {
+            // 方法执行
+            joinPoint.proceed();
+            // 将操作日志存入数据库
+            Employee employee = EmployeeUtil.getEmployee();
+            Log log = new Log();
+            log.setOperater(employee == null ? null : employee.getId());
+            Parameter[] parameters = method.getParameters();
+            String logStr = objectMapper.writeValueAsString(parameters);
+            log.setOperateData(logStr);
+            log.setOperateContent(annotation.value().getOperationName());
+            log.setOperateModule(annotation.value().getModuleName());
+            logService.save(log);
         }
     }
 }

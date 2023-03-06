@@ -1,9 +1,9 @@
 package com.hongsong.pojo.po;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,21 +14,21 @@ import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 角色权限关联表
  * </p>
  *
  * @author author
- * @since 2023-03-03 03:57:04
+ * @since 2023-03-06 08:39:38
  */
 @Getter
 @Setter
-@TableName("t_permission")
-@ApiModel(value = "Permission对象", description = "")
-public class Permission implements Serializable {
+@TableName("t_role_permission")
+@ApiModel(value = "RolePermission对象", description = "角色权限关联表")
+public class RolePermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("权限编号")
+    @ApiModelProperty("主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -41,17 +41,12 @@ public class Permission implements Serializable {
     private Integer moduleId;
 
     @ApiModelProperty("创建时间")
-    @TableField("created_time")
+    @TableField(value = "created_time", fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty("修改时间")
-    @TableField("modified_time")
+    @TableField(value = "modified_time", fill = FieldFill.INSERT_UPDATE)
     private Date modifiedTime;
-
-    @ApiModelProperty("逻辑删除：0-没删 1-删了")
-    @TableField("is_deleted")
-    @TableLogic
-    private Boolean isDeleted;
 
 
 }

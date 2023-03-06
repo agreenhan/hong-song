@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 职位按钮权限关联表 前端控制器
  * </p>
  *
  * @author author
- * @since 2023-03-03 03:57:04
+ * @since 2023-03-06 08:39:37
  */
 @RestController
-@RequestMapping("/hongsong/permission")
-public class PermissionController {
+@RequestMapping("/hongsong/button-permission")
+public class ButtonPermissionController {
 
 }
