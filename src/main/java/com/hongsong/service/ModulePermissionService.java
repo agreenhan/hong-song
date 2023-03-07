@@ -1,6 +1,6 @@
 package com.hongsong.service;
 
-import com.hongsong.pojo.po.RolePermission;
+import com.hongsong.pojo.po.ModulePermission;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author author
- * @since 2023-03-06 08:39:38
+ * @since 2023-03-06 09:57:52
  */
-public interface RolePermissionService extends IService<RolePermission> {
+public interface ModulePermissionService extends IService<ModulePermission> {
 
 }

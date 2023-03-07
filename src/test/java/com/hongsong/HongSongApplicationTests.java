@@ -1,6 +1,7 @@
 package com.hongsong;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.hongsong.dao.ModuleMapper;
 import com.hongsong.pojo.po.Log;
 import com.hongsong.service.LogService;
 import com.hongsong.util.JwtUtil;
@@ -13,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
+
+import javax.annotation.Resource;
 
 
 @SpringBootTest(classes = {HongSongApplication.class})
@@ -41,5 +44,12 @@ class HongSongApplicationTests {
 	@Test
 	void testInsert() {
 		logService.save(new Log());
+	}
+
+	@Resource
+	private ModuleMapper moduleMapper;
+	@Test
+	void testModule() {
+		System.out.println(moduleMapper.getModuleList(1));
 	}
 }

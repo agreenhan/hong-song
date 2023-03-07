@@ -43,7 +43,7 @@ public class MybatisGenerator {
                 })
                 // 策略配置
                 .strategyConfig(builder -> {
-                    builder.addInclude("t_role_permission", "t_button", "t_button_permission", "t_emp_role", "t_employee_training")
+                    builder.addInclude("t_module_permission","t_module")
                             .addTablePrefix("t_") // 设置过滤表前缀
                             .enableSkipView() // 开启跳过视图
                             // 实体类策略配置

@@ -9,11 +9,13 @@ import com.hongsong.pojo.dto.EmployeeDTO;
 import com.hongsong.pojo.po.Employee;
 import com.hongsong.dao.EmployeeMapper;
 import com.hongsong.pojo.po.LoginEmployee;
+import com.hongsong.pojo.vo.EmployeeVO;
 import com.hongsong.service.EmployeeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hongsong.util.EmployeeUtil;
 import com.hongsong.util.JwtUtil;
 import com.hongsong.util.RedisUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,6 +73,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public ResponseResult<?> info() {
         Employee employee = EmployeeUtil.getEmployee();
-        return ResponseResult.success().code(HttpStatus.SUCCESS).data(employee);
+        EmployeeVO employeeVO = new EmployeeVO();
+        BeanUtils.copyProperties(employee, employeeVO);
+        return ResponseResult.success().code(HttpStatus.SUCCESS).data(employeeVO);
     }
 }

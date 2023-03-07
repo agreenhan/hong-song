@@ -1,25 +1,23 @@
-package com.hongsong.pojo.dto;
+package com.hongsong.pojo.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * 员工传输对象
+ * 员工视图
  *
  * @Author: author
  * @Date: 2023/03/03 16:29
  */
 @Data
 @ApiModel(value = "Employee传输对象", description = "")
-public class EmployeeDTO implements Serializable {
+public class EmployeeVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("员工编号")

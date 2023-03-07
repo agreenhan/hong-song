@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hongsong.dao.ModuleMapper">
-
+    <sql id="columns">
+        id, name, path, component, parent_id, icon, created_time, modified_time, is_deleted, remark, title, hidden
+    </sql>
+    <select id="getModuleList" resultType="com.hongsong.pojo.po.Module" parameterType="int">
+        SELECT <include refid="columns"></include> FROM t_module
+        WHERE id IN (SELECT module_id FROM t_module_permission WHERE role_id=#{roleId})
+    </select>
 </mapper>

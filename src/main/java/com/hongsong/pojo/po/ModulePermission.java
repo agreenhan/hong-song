@@ -18,13 +18,13 @@ import lombok.Setter;
  * </p>
  *
  * @author author
- * @since 2023-03-06 08:39:38
+ * @since 2023-03-06 09:57:52
  */
 @Getter
 @Setter
-@TableName("t_role_permission")
-@ApiModel(value = "RolePermission对象", description = "角色权限关联表")
-public class RolePermission implements Serializable {
+@TableName("t_module_permission")
+@ApiModel(value = "ModulePermission对象", description = "角色权限关联表")
+public class ModulePermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

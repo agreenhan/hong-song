@@ -10,7 +10,8 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
     RESOURCE_NOT_FOUND(1001, HttpStatus.NOT_FOUND, "未找到该资源!"),
-    LOGIN_FAILED(1002, HttpStatus.FAILURE, "身份校验失败!");
+    LOGIN_FAILED(1002, HttpStatus.FAILURE, "身份校验失败!"),
+    LOGIN_STATE_VALID(1003, HttpStatus.TOKEN_EXPIRATION, "网络错误，请重新登陆！");
     private final Integer code;
     private final HttpStatus status;
     private final String message;

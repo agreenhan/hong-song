@@ -54,10 +54,6 @@ public class Employee implements Serializable {
     @TableField("password")
     private String password;
 
-    @ApiModelProperty("盐")
-    @TableField("salt")
-    private String salt;
-
     @ApiModelProperty("入职日期")
     @TableField(value = "created_time", fill = FieldFill.INSERT)
     private Date createdTime;

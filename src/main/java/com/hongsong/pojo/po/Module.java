@@ -1,7 +1,11 @@
 package com.hongsong.pojo.po;
 
-import com.baomidou.mybatisplus.annotation.*;
-
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import io.swagger.annotations.ApiModel;
@@ -11,16 +15,16 @@ import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 模块表
  * </p>
  *
  * @author author
- * @since 2023-03-04 04:00:15
+ * @since 2023-03-06 09:57:52
  */
 @Getter
 @Setter
 @TableName("t_module")
-@ApiModel(value = "Module对象", description = "")
+@ApiModel(value = "Module对象", description = "模块表")
 public class Module implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,8 +34,8 @@ public class Module implements Serializable {
     private Integer id;
 
     @ApiModelProperty("模块名称")
-    @TableField("module_name")
-    private String moduleName;
+    @TableField("name")
+    private String name;
 
     @ApiModelProperty("路由地址")
     @TableField("path")
@@ -41,13 +45,13 @@ public class Module implements Serializable {
     @TableField("component")
     private String component;
 
+    @ApiModelProperty("模块标题")
+    @TableField("title")
+    private String title;
+
     @ApiModelProperty("父模块id")
     @TableField("parent_id")
     private Integer parentId;
-
-    @ApiModelProperty("禁用状态：0-启用 1-禁用")
-    @TableField("is_valid")
-    private Boolean isValid;
 
     @ApiModelProperty("菜单图表")
     @TableField("icon")
@@ -70,9 +74,13 @@ public class Module implements Serializable {
     @TableField("remark")
     private String remark;
 
-    @ApiModelProperty("菜单状态（0显示 1隐藏）")
-    @TableField("visible")
-    private String visible;
+    @ApiModelProperty("是否隐藏（0显示 1隐藏）")
+    @TableField("hidden")
+    private Boolean hidden;
+
+    @ApiModelProperty("重定向地址")
+    @TableField("redirect")
+    private Boolean redirect;
 
 
 }

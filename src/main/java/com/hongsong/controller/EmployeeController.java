@@ -1,7 +1,9 @@
 package com.hongsong.controller;
 
 
+import com.hongsong.annotation.LogAnnotation;
 import com.hongsong.common.ResponseResult;
+import com.hongsong.constant.log.EmployeeLogEnum;
 import com.hongsong.pojo.dto.EmployeeDTO;
 import com.hongsong.pojo.po.Employee;
 import com.hongsong.service.EmployeeService;
@@ -28,12 +30,15 @@ public class EmployeeController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "登录")
+    @LogAnnotation(EmployeeLogEnum.Employee_LOGIN)
     public ResponseResult<?> login(Employee employee) {
         return employeeService.login(employee);
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('test')")
     @ApiOperation(value = "退出")
+    @LogAnnotation(EmployeeLogEnum.Employee_EXIT)
     public ResponseResult<?> logout() {
         return employeeService.logout();
     }

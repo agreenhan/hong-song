@@ -1,6 +1,6 @@
 package com.hongsong.dao;
 
-import com.hongsong.pojo.po.RolePermission;
+import com.hongsong.pojo.po.ModulePermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author author
- * @since 2023-03-06 08:39:38
+ * @since 2023-03-06 09:57:52
  */
-public interface RolePermissionMapper extends BaseMapper<RolePermission> {
+public interface ModulePermissionMapper extends BaseMapper<ModulePermission> {
 
 }
