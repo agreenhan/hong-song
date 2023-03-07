@@ -4,14 +4,17 @@ import com.hongsong.common.ResponseResult;
 import com.hongsong.constant.ErrorCode;
 import com.hongsong.constant.HttpStatus;
 import com.hongsong.constant.RedisKey;
+import com.hongsong.constant.log.EmployeeLogEnum;
 import com.hongsong.exception.ValidException;
 import com.hongsong.pojo.dto.EmployeeDTO;
 import com.hongsong.pojo.po.Employee;
 import com.hongsong.dao.EmployeeMapper;
+import com.hongsong.pojo.po.Log;
 import com.hongsong.pojo.po.LoginEmployee;
 import com.hongsong.pojo.vo.EmployeeVO;
 import com.hongsong.service.EmployeeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hongsong.service.LogService;
 import com.hongsong.util.EmployeeUtil;
 import com.hongsong.util.JwtUtil;
 import com.hongsong.util.RedisUtil;
@@ -23,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -41,6 +45,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     private AuthenticationManager authenticationManager;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private LogService logService;
 
 
     @Override
@@ -59,7 +65,14 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         // token响应给前端
         Map<String, String> map = new HashMap<>();
         map.put("token", jwt);
-        return ResponseResult.success().data(map).message("登陆成功").code(200);
+        // 保存登录日志
+        Log log = new Log();
+        log.setOperater(Integer.valueOf(empId));
+        log.setOperateData(null);
+        log.setOperateContent(EmployeeLogEnum.Employee_LOGIN.getOperationName());
+        log.setOperateModule(EmployeeLogEnum.Employee_LOGIN.getModuleName());
+        logService.save(log);
+        return ResponseResult.success().data(map).message("登陆成功");
     }
 
     @Override
@@ -67,7 +80,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         Employee employee = EmployeeUtil.getEmployee();
         Integer empId = employee.getId();
         redisUtil.deleteObject(RedisKey.IDENTITY + RedisKey.LOGIN + empId);
-        return ResponseResult.success().message("退出成功").code(200);
+        return ResponseResult.success().message("退出成功");
     }
 
     @Override
@@ -75,6 +88,6 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         Employee employee = EmployeeUtil.getEmployee();
         EmployeeVO employeeVO = new EmployeeVO();
         BeanUtils.copyProperties(employee, employeeVO);
-        return ResponseResult.success().code(HttpStatus.SUCCESS).data(employeeVO);
+        return ResponseResult.success().data(employeeVO);
     }
 }

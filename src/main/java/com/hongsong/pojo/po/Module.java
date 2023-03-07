@@ -80,7 +80,7 @@ public class Module implements Serializable {
 
     @ApiModelProperty("重定向地址")
     @TableField("redirect")
-    private Boolean redirect;
+    private String redirect;
 
 
 }

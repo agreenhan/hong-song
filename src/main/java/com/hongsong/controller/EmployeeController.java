@@ -30,7 +30,6 @@ public class EmployeeController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "登录")
-    @LogAnnotation(EmployeeLogEnum.Employee_LOGIN)
     public ResponseResult<?> login(Employee employee) {
         return employeeService.login(employee);
     }

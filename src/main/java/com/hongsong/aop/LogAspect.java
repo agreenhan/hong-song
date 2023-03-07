@@ -50,13 +50,14 @@ public class LogAspect {
      * @Date: 2023/2/26 18:34
      */
     @Around("logAnnotationCut()")
-    public void logAspect(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object logAspect(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         LogAnnotation annotation = method.getAnnotation(LogAnnotation.class);
+        // 方法执行
+        Object proceed = joinPoint.proceed();
         if (Objects.nonNull(annotation)) {
-            // 方法执行
-            joinPoint.proceed();
+
             // 将操作日志存入数据库
             Employee employee = EmployeeUtil.getEmployee();
             Log log = new Log();
@@ -68,5 +69,6 @@ public class LogAspect {
             log.setOperateModule(annotation.value().getModuleName());
             logService.save(log);
         }
+        return proceed;
     }
 }

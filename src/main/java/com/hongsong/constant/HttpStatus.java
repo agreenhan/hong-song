@@ -16,7 +16,8 @@ public enum HttpStatus {
     FORBIDDEN(403, "无权限访问"),
     UNAUTHORIZED(401, "认证失败"),
     ILLEGAL_TOKEN(50008, "非法令牌"),
-    TOKEN_EXPIRATION(50014, "令牌过期");
+    TOKEN_EXPIRATION(50014, "令牌过期"),
+    SERVER_ERROR(500, "服务器错误");
 
     private Integer code;
     private String message;

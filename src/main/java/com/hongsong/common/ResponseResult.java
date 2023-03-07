@@ -67,7 +67,9 @@ public class ResponseResult<T> implements Serializable {
      * @Date: 2023/2/28 12:04
      */
     public static <T> ResponseResult<T> success() {
-        return new ResponseResult<T>();
+        ResponseResult<T> tResponseResult = new ResponseResult<>();
+        tResponseResult.code(HttpStatus.SUCCESS);
+        return tResponseResult;
     }
 
     /**

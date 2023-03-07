@@ -1,5 +1,6 @@
 package com.hongsong.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,6 +16,9 @@ import java.util.List;
 @Data
 @ApiModel("模块视图对象")
 public class ModuleVO {
+    @JsonIgnore
+    @ApiModelProperty("父功能模块id")
+    private Integer id;
     @ApiModelProperty("路径")
     private String path;
     @ApiModelProperty("组件位置")

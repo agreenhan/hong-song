@@ -29,6 +29,6 @@ public class ModuleController {
     @PreAuthorize("hasAuthority('test')")
     @ApiOperation(value = "获取当前用户的可用模块")
     public ResponseResult<?> moduleList() {
-        return ResponseResult.success().code(HttpStatus.SUCCESS).data(moduleService.getModuleList());
+        return ResponseResult.success().data(moduleService.getModuleList());
     }
 }

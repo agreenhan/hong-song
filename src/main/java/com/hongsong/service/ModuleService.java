@@ -18,8 +18,8 @@ import java.util.List;
 public interface ModuleService extends IService<Module> {
 
     /**
-     * @Description: 获取当前员工的可见模块
-     * @return ModuleVO
+     * @Description: 获取当前员工的可见模块(Json字符串)
+     * @return String
      * @Author: agreenHan
      * @Date: 2023/3/6 22:02
      */
@@ -33,4 +33,12 @@ public interface ModuleService extends IService<Module> {
      * @Date: 2023/3/6 23:31
      */
     List<ModuleVO> generatorModuleTree(List<Module> moduleList);
+
+    /**
+     * @describe: 将模块对象转化为模块视图对象
+     * @Author: jht
+     * @param module
+     * @Date: 2023/3/7 14:10
+     */
+    ModuleVO module2ModuleVO(Module module);
 }
