@@ -1,5 +1,6 @@
 package com.hongsong.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel("路由meta属性")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Meta {
     @ApiModelProperty("标题")
     private String title;

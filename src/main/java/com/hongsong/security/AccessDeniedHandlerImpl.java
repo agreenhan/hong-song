@@ -36,7 +36,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
      */
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        ResponseResult<Object> result = ResponseResult.success().code(HttpStatus.FORBIDDEN);
+        ResponseResult<Object> result = ResponseResult.success().code(HttpStatus.ILLEGAL_TOKEN);
         String json = objectMapper.writeValueAsString(result);
         WebUtil.renderString(response, json);
     }

@@ -79,7 +79,7 @@ public class ResponseResult<T> implements Serializable {
      * @Date: 2023/2/28 12:30
      */
     public static <T> ResponseResult<T> failure() {
-        return new ResponseResult<T>().code(HttpStatus.FAILURE.getCode());
+        return new ResponseResult<T>().code(HttpStatus.FAILURE);
     }
 
     /**
